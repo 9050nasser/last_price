@@ -7,7 +7,29 @@ app_license = "MIT"
 
 # Includes in <head>
 # ------------------
-
+fixtures = [
+    {"dt": "Server Script", "filters": [
+        [
+            "name", "in", [
+                "Create Customer Price"
+            ]
+        ]
+    ]},
+    {"dt": "Client Script", "filters": [
+        [
+            "name", "in", [
+                "Get Customer Last Selling Price"
+            ]
+        ]
+    ]},
+    {"dt": "Custom Field", "filters": [
+        [
+            "name", "in", [
+                "Sales Invoice Item-custom_customer_price"
+            ]
+        ]
+    ]}
+]
 # include js, css files in header of desk.html
 # app_include_css = "/assets/last_price/css/last_price.css"
 # app_include_js = "/assets/last_price/js/last_price.js"

@@ -4,10 +4,10 @@
   "doctype": "Client Script",
   "dt": "Sales Invoice",
   "enabled": 1,
-  "modified": "2024-05-12 15:33:02.692889",
+  "modified": "2024-05-15 13:03:41.624240",
   "module": "Last Price",
   "name": "Get Customer Last Selling Price",
-  "script": "frappe.ui.form.on('Sales Invoice', {\n\trefresh(frm) {\n\t\t// your code here\n\t}\n})\n\nfrappe.ui.form.on(\"Sales Invoice Item\", \"item_code\", function(frm, cdt, cdn) {\n    var d = locals[cdt][cdn];\n        frappe.call({\n    method: 'last_price.api.get_selling_price',\n    args: {\n        'customer': frm.doc.customer,\n        'item': d.item_code,\n        \n    },\n    callback: function(r) {\n        if (!r.exc) {\n            \n            if (r.message && r.message.length > 0) {\n                d.custom_customer_price = r.message[-1].price;\n                if (r.message[-1].price === 0) {\n                    console.log(`No Customer Price`);\n                }\n            } else {\n                console.log(`No price information available for the customer and item.`);\n            }\n        } else {\n            console.log('Error fetching customer price:', r.exc);\n        }\n    }\n});\n});\n\n",
+  "script": "frappe.ui.form.on('Sales Invoice', {\n\trefresh(frm) {\n\t\t// your code here\n\t}\n})\n\nfrappe.ui.form.on(\"Sales Invoice Item\", \"item_code\", function(frm, cdt, cdn) {\n    var d = locals[cdt][cdn];\n    \n    frappe.call({\n        method: 'last_price.api.get_selling_price',\n        args: {\n            'customer': frm.doc.customer,\n            'item': d.item_code\n        },\n        callback: function(r) {\n            if (!r.exc) {\n                if (r.message && r.message.length > 0) {\n                    var lastPrice = r.message[r.message.length - 1]; // Access the last element\n                    console.log(`Last price fetched: ${lastPrice.price}`);\n                    d.custom_customer_price = lastPrice.price;\n                    d.rate = lastPrice.price;\n                    d.base_rate = lastPrice.price;\n                } else {\n                    console.log(`No price information available for the customer and item.`);\n                }\n            } else {\n                console.log('Error fetching customer price:', r.exc);\n            }\n        }\n    });\n});",
   "view": "Form"
  }
 ]

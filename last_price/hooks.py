@@ -10,22 +10,22 @@ app_license = "MIT"
 fixtures = [
     {"dt": "Server Script", "filters": [
         [
-            "name", "in", [
-                "Create Customer Price"
+            "module", "in", [
+                "Last Price"
             ]
         ]
     ]},
     {"dt": "Client Script", "filters": [
         [
-            "name", "in", [
-                "Get Customer Last Selling Price"
+            "module", "in", [
+                "Last Price"
             ]
         ]
     ]},
     {"dt": "Custom Field", "filters": [
         [
-            "name", "in", [
-                "Sales Invoice Item-custom_customer_price"
+            "module", "in", [
+                "Last Price"
             ]
         ]
     ]}
